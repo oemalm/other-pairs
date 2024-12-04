@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Other Pairs Calculation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        #container {
+            position: relative;
+            width: 768px;
+            height: 768px;
+            margin: 20px auto;
+            background: url('other pair.jpg') no-repeat center center;
+            background-size: cover;
+        }
+        .input-field {
+            position: absolute;
+            width: 200px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .lot {
+            top: 190px;
+            right: 55px;
+        }
+        .price-now {
+            top: 320px;
+            right: 55px;
+        }
+        .take-profit {
+            top: 453px;
+            right: 55px;
+        }
+        .stop-loss {
+            top: 588px;
+            right: 55px;
+        }
+        #calculate {
+            position: absolute;
+            top: 750px;
+            left: 125px;
+            padding: 10px 20px;
+            font-size: 26px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            white-space: pre-wrap;
+        }
+        #calculate:hover {
+            background-color: #45a049;
+        }
+        #result {
+            position: absolute;
+            top: 650px;
+            right: 15px;
+            text-align: left;
+            font-size: 24px;
+            line-height: 1.8;
+            white-space: pre-wrap; /* النص يظهر أسفل بعضه */
+        }
+        .error {
+            color: red;
+            font-size: 18px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <input type="number" id="lot" class="input-field lot" placeholder="Enter Lot Value">
+        <input type="number" id="priceNow" class="input-field price-now" placeholder="Enter Price Now">
+        <input type="number" id="takeProfit" class="input-field take-profit" placeholder="Enter Take Profit Price">
+        <input type="number" id="stopLoss" class="input-field stop-loss" placeholder="Enter Stop Loss Price">
+        <button id="calculate" onclick="calculate()">Calculate</button>
+        <div id="result"></div>
+        <div id="error-message" class="error"></div>
+    </div>
+
+    <script>
+        function calculate() {
+            const lot = parseFloat(document.getElementById('lot').value);
+            const priceNow = parseFloat(document.getElementById('priceNow').value);
+            const takeProfit = parseFloat(document.getElementById('takeProfit').value);
+            const stopLoss = parseFloat(document.getElementById('stopLoss').value);
+
+            const errorMessage = document.getElementById('error-message');
+            const result = document.getElementById('result');
+
+            // التحقق من المدخلات
+            if (isNaN(lot) || isNaN(priceNow) || isNaN(takeProfit) || isNaN(stopLoss)) {
+                errorMessage.textContent = "Please fill in all fields with valid numbers.";
+                result.textContent = ""; // إزالة أي نتيجة سابقة
+                return;
+            }
+
+            // إعادة تعيين رسالة الخطأ
+            errorMessage.textContent = "";
+
+            // العمليات الحسابية
+            const profitPoints = ((takeProfit - priceNow) * 100000).toFixed(1); // إصلاح الأرقام العشرية
+            const lossPoints = ((priceNow - stopLoss) * 100000).toFixed(1); // إصلاح الأرقام العشرية
+
+            const profitBalance = (profitPoints * lot * 10).toFixed(2); // تحديد نتيجتين عشريتين
+            const lossBalance = (lossPoints * lot * 10 * -1).toFixed(2); // تحديد نتيجتين عشريتين
+
+            // عرض النتائج
+            result.textContent = `
+Profit Points: ${profitPoints} pips
+Loss Points: ${lossPoints} pips
+Profit Balance: $${profitBalance}
+Loss Balance: $${lossBalance}`;
+        }
+    </script>
+</body>
+</html>
