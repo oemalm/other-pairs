@@ -28,30 +28,30 @@
             border-radius: 5px;
             font-size: 10px;
         }
-        /* تعديل أماكن الخانات */
+        /* مواضع الخانات */
         .lot {
-            top: 20%; /* الموضع العمودي */ 
-            left: 10%; /* الموضع الأفقي */ 
+            top: 25%; /* الموضع العمودي */
+            right: 8%; /* الموضع الأفقي */
         }
         .price-now {
-            top: 40%; /* الموضع العمودي */ 
-            left: 10%; /* الموضع الأفقي */ 
+            top: 42.5%; /* الموضع العمودي */
+            right: 8%; /* الموضع الأفقي */
         }
         .take-profit {
-            top: 60%; /* الموضع العمودي */ 
-            left: 10%; /* الموضع الأفقي */ 
+            top: 60%; /* الموضع العمودي */
+            right: 8%; /* الموضع الأفقي */
         }
         .stop-loss {
-            top: 80%; /* الموضع العمودي */ 
-            left: 10%; /* الموضع الأفقي */ 
+            top: 77.5%; /* الموضع العمودي */
+            right: 8%; /* الموضع الأفقي */
         }
         #calculate {
             position: absolute;
             top: 90%;
-            left: 50%;
+            left: 26%;
             transform: translateX(-50%);
             padding: 8px 16px;
-            font-size: 16px;
+            font-size: 18px;
             background-color: #4CAF50;
             color: white;
             border: none;
@@ -63,19 +63,32 @@
         }
         #result {
             position: absolute;
-            top: 10%;
-            right: 10%;
-            text-align: left;
-            font-size: 12px;
-            line-height: 1.5;
-            white-space: pre; /* لجعل كل ناتج يظهر على سطر منفصل */
+            top: 86%;
+            left: 78%;
+            transform: translateX(-50%);
+            text-align: center;
+            font-size: 9px;
+            line-height: 1.1;
+            white-space: pre; /* لجعل كل ناتج يظهر على سطر */
         }
         .error {
             color: red;
             font-size: 12px;
-            position: absolute;
-            top: 5%;
-            left: 10%;
+            margin-top: 5px;
+        }
+        @media (max-width: 600px) {
+            .input-field {
+                width: 25%;
+                font-size: 8px;
+                padding: 3px;
+            }
+            #calculate {
+                font-size: 12px;
+                padding: 6px 12px;
+            }
+            #result {
+                font-size: 9px;
+            }
         }
     </style>
 </head>
@@ -117,7 +130,7 @@
             const profitBalance = (profitPoints * lot * 10).toFixed(2);
             const lossBalance = (lossPoints * lot * 10 * -1).toFixed(2);
 
-            // عرض النتائج
+            // عرض النتائج تحت الزر مع فواصل أسطر
             result.innerHTML = `
 Profit Points: ${profitPoints} pips<br>
 Loss Points: ${lossPoints} pips<br>
