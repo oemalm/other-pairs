@@ -13,66 +13,69 @@
         }
         #container {
             position: relative;
-            width: 768px;
-            height: 768px;
-            margin: 20px auto;
+            width: 90%;
+            max-width: 600px;
+            aspect-ratio: 1 / 1;
+            margin: 10px auto;
             background: url('other pair.jpg') no-repeat center center;
             background-size: cover;
         }
         .input-field {
             position: absolute;
-            width: 200px;
-            padding: 10px;
+            width: 15%;
+            padding: 4px;
             border: 1px solid #ccc;
             border-radius: 5px;
-            font-size: 16px;
+            font-size: 10px;
         }
+        /* تعديل أماكن الخانات */
         .lot {
-            top: 190px;
-            right: 55px;
+            top: 20%; /* الموضع العمودي */ 
+            left: 10%; /* الموضع الأفقي */ 
         }
         .price-now {
-            top: 320px;
-            right: 55px;
+            top: 40%; /* الموضع العمودي */ 
+            left: 10%; /* الموضع الأفقي */ 
         }
         .take-profit {
-            top: 453px;
-            right: 55px;
+            top: 60%; /* الموضع العمودي */ 
+            left: 10%; /* الموضع الأفقي */ 
         }
         .stop-loss {
-            top: 588px;
-            right: 55px;
+            top: 80%; /* الموضع العمودي */ 
+            left: 10%; /* الموضع الأفقي */ 
         }
         #calculate {
             position: absolute;
-            top: 750px;
-            left: 125px;
-            padding: 10px 20px;
-            font-size: 26px;
+            top: 90%;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 8px 16px;
+            font-size: 16px;
             background-color: #4CAF50;
             color: white;
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            font-weight: bold;
-            white-space: pre-wrap;
         }
         #calculate:hover {
             background-color: #45a049;
         }
         #result {
             position: absolute;
-            top: 650px;
-            right: 15px;
+            top: 10%;
+            right: 10%;
             text-align: left;
-            font-size: 24px;
-            line-height: 1.8;
-            white-space: pre-wrap; /* النص يظهر أسفل بعضه */
+            font-size: 12px;
+            line-height: 1.5;
+            white-space: pre; /* لجعل كل ناتج يظهر على سطر منفصل */
         }
         .error {
             color: red;
-            font-size: 18px;
-            margin-top: 20px;
+            font-size: 12px;
+            position: absolute;
+            top: 5%;
+            left: 10%;
         }
     </style>
 </head>
@@ -108,17 +111,17 @@
             errorMessage.textContent = "";
 
             // العمليات الحسابية
-            const profitPoints = ((takeProfit - priceNow) * 100000).toFixed(1); // إصلاح الأرقام العشرية
-            const lossPoints = ((priceNow - stopLoss) * 100000).toFixed(1); // إصلاح الأرقام العشرية
+            const profitPoints = ((takeProfit - priceNow) * 100000).toFixed(1);
+            const lossPoints = ((priceNow - stopLoss) * 100000).toFixed(1);
 
-            const profitBalance = (profitPoints * lot * 10).toFixed(2); // تحديد نتيجتين عشريتين
-            const lossBalance = (lossPoints * lot * 10 * -1).toFixed(2); // تحديد نتيجتين عشريتين
+            const profitBalance = (profitPoints * lot * 10).toFixed(2);
+            const lossBalance = (lossPoints * lot * 10 * -1).toFixed(2);
 
             // عرض النتائج
-            result.textContent = `
-Profit Points: ${profitPoints} pips
-Loss Points: ${lossPoints} pips
-Profit Balance: $${profitBalance}
+            result.innerHTML = `
+Profit Points: ${profitPoints} pips<br>
+Loss Points: ${lossPoints} pips<br>
+Profit Balance: $${profitBalance}<br>
 Loss Balance: $${lossBalance}`;
         }
     </script>
